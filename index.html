@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0e10">
+<title>Nitrogen Studios</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Nitrogen Studios, Salgaa. Award-winning photography, videography, drone and livestream for portraits, weddings, graduations and events.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nitrogen">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+[hidden]{display:none!important}
+/* Layout: a gallery after dark. Graphite walls, champagne light, the studio's colour as the only loud thing.
+   Triptych hero, service ticker, signature reel, filterable archive, service index with image reveals. */
+:root{
+  --bg:#0c0e10; --wall:#121518; --raise:#181c20; --line:#262b30;
+  --fg:#f1eee8; --muted:#9a9a95; --dim:#5f6366;
+  --gold:#d8c29a; --gold-deep:#b89b6a; --ink:#0c0e10;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:1.5px solid var(--gold);outline-offset:4px}
+.wrap{max-width:1320px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.label.gold{color:var(--gold)}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(40px,6.4vw,92px)}
+em{font-style:italic;color:var(--gold)}
+p{margin:0}
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--gold);border-radius:0;padding:14px 26px;background:var(--gold);color:var(--ink);font:600 13px var(--body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:transparent;color:var(--gold)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn svg{width:16px;height:16px}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:30;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(12,14,16,.88);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.tile{width:40px;height:40px;border:1px solid var(--gold);display:grid;place-items:center;position:relative;flex:none;color:var(--gold)}
+.tile b{font-family:var(--display);font-size:23px;font-weight:500;line-height:1}
+.tile i{position:absolute;top:2px;left:4px;font:normal 8.5px var(--mono)}
+.brand span{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase}
+.nav nav{display:flex;gap:30px;font-size:13px;letter-spacing:.06em}
+.nav nav a{text-decoration:none;color:var(--muted);transition:color .25s}
+.nav nav a:hover{color:var(--fg)}
+.nav .btn{padding:10px 18px;font-size:11.5px}
+@media (max-width:860px){.nav nav{display:none}}
+
+/* hero */
+.hero{position:relative;padding-top:calc(96px + env(safe-area-inset-top,0px));padding-bottom:56px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(64px,10.5vw,168px);line-height:.88}
+.hero h1 .l1,.hero h1 .l2{display:block;overflow:hidden}
+.hero h1 .l1>span,.hero h1 .l2>span{display:inline-block;animation:up 1.1s var(--ease) both}
+.hero h1 .l2>span{animation-delay:.12s}
+.hero h1 .l2{font-style:italic;color:var(--gold);padding-left:.55em}
+@keyframes up{from{transform:translateY(40%);opacity:.2}to{transform:none;opacity:1}}
+.hero-copy{display:grid;gap:26px;margin-top:34px;max-width:42ch}
+.hero-copy p{color:var(--muted);font-size:17px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.trip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;height:clamp(420px,52vw,680px)}
+.trip .p{position:relative;overflow:hidden;background:var(--wall)}
+.trip .p:nth-child(2){transform:translateY(-36px)}
+.trip .p:nth-child(3){transform:translateY(24px)}
+.trip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s linear}
+.trip img.on{opacity:1;transform:scale(1)}
+.hero-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:60px;padding-top:18px;border-top:1px solid var(--line)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.trip{height:min(118vw,560px);min-height:0}.trip .p:nth-child(2){transform:translateY(-16px)}.trip .p:nth-child(3){transform:translateY(12px)}}
+
+/* ticker */
+.ticker{border-block:1px solid var(--line);overflow:hidden;background:var(--wall)}
+.ticker .track{display:flex;width:max-content;animation:tick 48s linear infinite}
+.ticker span{font-family:var(--display);font-style:italic;font-size:clamp(28px,4vw,48px);padding:18px 0;white-space:nowrap}
+.ticker span::after{content:"✦";font-style:normal;font-size:.4em;color:var(--gold);margin:0 .9em;vertical-align:.5em}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* award */
+.award{padding-block:88px 0}
+.award .card{display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;border:1px solid var(--line);padding:34px 36px;background:linear-gradient(120deg,var(--wall),var(--bg))}
+.seal{width:118px;height:118px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;text-align:center;color:var(--gold);position:relative}
+.seal::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px dashed var(--gold-deep)}
+.seal b{font-family:var(--display);font-size:38px;font-weight:400;line-height:1}
+.seal small{display:block;font:500 9px var(--mono);letter-spacing:.2em}
+.award h3{font-size:clamp(28px,3.6vw,46px)}
+.award p{color:var(--muted);margin-top:10px;max-width:56ch}
+@media (max-width:760px){.award .card{grid-template-columns:1fr;gap:20px;padding:26px 22px}}
+
+section{padding-block:120px 0}
+.head{display:grid;grid-template-columns:1.2fr 1fr;align-items:end;gap:24px 48px;margin-bottom:44px}
+.head .k{display:grid;gap:16px}
+.head p{color:var(--muted);max-width:44ch;justify-self:end}
+@media (max-width:760px){.head{grid-template-columns:1fr}.head p{justify-self:start}}
+
+/* signature reel */
+.reel{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(220px,24vw,330px);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:18px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.reel figure{margin:0;scroll-snap-align:start;display:grid;gap:12px}
+.reel .ph{aspect-ratio:3/4.3;overflow:hidden;background:var(--wall)}
+.reel img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.reel figure:hover img{transform:scale(1.05)}
+.reel figcaption{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted)}
+.reel figcaption b{font-weight:500;color:var(--fg)}
+.reel-nav{display:flex;gap:8px}
+.round{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;font-size:18px;transition:border-color .25s,color .25s}
+.round:hover{border-color:var(--gold);color:var(--gold)}
+
+/* archive */
+.filters{display:flex;flex-wrap:wrap;gap:6px 26px;margin-bottom:30px;border-bottom:1px solid var(--line)}
+.chip{font:500 14px var(--body);padding:12px 0;border:0;border-bottom:1px solid transparent;margin-bottom:-1px;background:transparent;color:var(--muted);cursor:pointer;transition:color .25s}
+.chip:hover{color:var(--fg)}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--gold)}
+.chip sup{font-family:var(--mono);font-size:10px;color:var(--gold);margin-left:4px}
+.grid{columns:4 250px;column-gap:12px}
+.grid button{display:block;width:100%;margin:0 0 12px;padding:0;border:0;background:var(--wall);cursor:zoom-in;break-inside:avoid;position:relative;overflow:hidden;animation:fade .6s var(--ease) both}
+.grid img{width:100%;transition:transform .9s var(--ease),filter .6s}
+.grid button:hover img{transform:scale(1.045)}
+.grid .cap{position:absolute;inset:auto 0 0 0;padding:40px 14px 12px;font-size:12.5px;text-align:left;color:#f1eee8;background:linear-gradient(transparent,rgba(8,9,10,.78));opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.grid button:hover .cap,.grid button:focus-visible .cap{opacity:1;transform:none}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+@media (max-width:600px){.grid{columns:2;column-gap:8px}.grid button{margin-bottom:8px}.filters{gap:4px 18px}}
+
+/* service index */
+.index{border-top:1px solid var(--line);position:relative}
+.row{display:grid;grid-template-columns:56px 1.1fr 1.3fr auto;gap:24px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);position:relative}
+.row .no{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.row h3{font-size:clamp(30px,3.6vw,50px);transition:color .3s,transform .5s var(--ease)}
+.row p{color:var(--muted);font-size:15px;max-width:48ch}
+.row .tags{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-align:right}
+.row .peek{position:absolute;right:22%;top:50%;width:170px;aspect-ratio:3/4;object-fit:cover;opacity:0;transform:translateY(-50%) rotate(-3deg) scale(.9);transition:opacity .4s,transform .6s var(--ease);pointer-events:none;z-index:2;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.row:hover h3{color:var(--gold);transform:translateX(10px)}
+.row:hover .peek{opacity:1;transform:translateY(-50%) rotate(-3deg) scale(1)}
+@media (max-width:860px){.row{grid-template-columns:1fr;gap:10px;padding:26px 0}.row .tags{text-align:left}.row .peek{display:none}}
+@media (hover:none){.row .peek{display:none}}
+
+/* aerial */
+.air{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.air figure{margin:0;overflow:hidden;position:relative;background:var(--wall)}
+.air img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.air figure:hover img{transform:scale(1.04)}
+.air .a1{grid-row:span 2}
+.air figcaption{position:absolute;left:14px;bottom:12px;font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#f1eee8;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.air .list{grid-column:2/4;border:1px solid var(--line);padding:24px 26px;display:flex;flex-wrap:wrap;gap:10px 28px;align-content:center}
+.air .list span{font-family:var(--display);font-style:italic;font-size:22px}
+@media (max-width:860px){.air{grid-template-columns:1fr 1fr}.air .a1{grid-column:1/-1;grid-row:auto;height:380px}.air .list{grid-column:1/-1}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.steps div{padding:30px 26px 0 0;display:grid;gap:12px;align-content:start;min-width:0}
+.steps div+div{padding-left:26px;border-left:1px solid var(--line)}
+.steps b{font-family:var(--display);font-size:64px;font-weight:400;line-height:1;color:var(--gold)}
+.steps h3{font-size:26px}
+.steps p{color:var(--muted);font-size:15px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}.steps div,.steps div+div{padding:26px 16px 26px 0;border-left:0;border-bottom:1px solid var(--line)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:center}
+.about figure{margin:0;position:relative;padding-bottom:40px}
+.about figure img:first-child{width:86%;filter:grayscale(1) contrast(1.05)}
+.about figure img + img{position:absolute;width:48%;right:0;bottom:0;border:8px solid var(--bg)}
+.about .copy{display:grid;gap:20px;max-width:54ch}
+.about .copy p{color:var(--muted)}
+.about blockquote{margin:10px 0 0;padding-left:22px;border-left:1px solid var(--gold);font-family:var(--display);font-style:italic;font-size:clamp(26px,3vw,36px);line-height:1.15}
+@media (max-width:860px){.about{grid-template-columns:1fr;gap:40px}.about figure{max-width:460px}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.15fr;gap:48px}
+.cards{display:grid;gap:0;align-content:start;border-top:1px solid var(--line)}
+.card{border-bottom:1px solid var(--line);padding:22px 0;display:grid;gap:6px;min-width:0}
+.card .v{font-family:var(--display);font-size:30px;font-variant-numeric:tabular-nums;user-select:all;overflow-wrap:anywhere;line-height:1.15}
+.card .row2{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.mini{font:600 11.5px var(--body);letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;text-decoration:none;transition:border-color .25s,color .25s}
+.mini:hover{border-color:var(--gold);color:var(--gold)}
+.note{font-size:13.5px;color:var(--muted)}
+form{background:var(--wall);border:1px solid var(--line);padding:32px;display:grid;gap:18px;grid-template-columns:1fr 1fr}
+form .full{grid-column:1/-1}
+form label{display:grid;gap:8px;font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-width:0}
+input,select,textarea{font:400 16px var(--body);color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 0;border-radius:0;width:100%;letter-spacing:0;text-transform:none;transition:border-color .25s}
+select option{background:var(--wall)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:96px;resize:vertical}
+@media (max-width:860px){.contact{grid-template-columns:1fr}form{grid-template-columns:1fr;padding:24px 20px}}
+
+footer{margin-top:120px;border-top:1px solid var(--line);overflow:hidden}
+footer .big{font-family:var(--display);font-size:clamp(64px,17vw,250px);line-height:.85;letter-spacing:-.02em;color:var(--raise);white-space:nowrap;padding-top:30px}
+footer .big em{color:var(--line)}
+footer .wrap.meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:24px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+/* whatsapp */
+.wa{position:fixed;z-index:25;right:max(18px,calc(env(safe-area-inset-right,0px) + 18px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;gap:10px;padding:12px 18px 12px 14px;border-radius:999px;background:var(--gold);color:var(--ink);font:600 13px var(--body);text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.wa svg{width:20px;height:20px}
+@media (max-width:480px){.wa span{display:none}.wa{padding:14px}}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(7,8,9,.96);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 64px) max(14px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 40px) max(14px,env(safe-area-inset-left,0px))}
+.lb figure{margin:0;display:grid;justify-items:center;align-content:center;gap:14px;min-width:0;height:100%}
+.lb img{max-width:100%;max-height:calc(100% - 34px);object-fit:contain}
+.lb figcaption{color:var(--muted);font-size:13px;text-align:center}
+.lb .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:max(14px,env(safe-area-inset-right,0px))}
+.lb .count{position:absolute;top:calc(env(safe-area-inset-top,0px) + 26px);left:max(18px,env(safe-area-inset-left,0px));font:12px var(--mono);color:var(--muted)}
+@media (max-width:600px){.lb{grid-template-columns:1fr}.lb #lb-prev,.lb #lb-next{display:none}}
+
+
+/* phone app: tab bar, install banner, standalone tweaks */
+.tabs{display:none}
+.install{display:none}
+@media (max-width:760px){
+  body{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+  .wa{display:none}
+  .nav .btn{display:none}
+  .tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;z-index:35;left:0;right:0;bottom:0;padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));background:rgba(12,14,16,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+  .tabs a{display:grid;justify-items:center;gap:3px;padding:6px 0;text-decoration:none;color:var(--dim);font:600 10px var(--body);letter-spacing:.04em;-webkit-tap-highlight-color:transparent}
+  .tabs a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}
+  .tabs a.on{color:var(--gold)}
+  .tabs a.book{color:var(--ink)}
+  .tabs a.book span.dot{display:grid;place-items:center;width:44px;height:44px;margin-top:-20px;border-radius:50%;background:var(--gold);box-shadow:0 8px 22px rgba(0,0,0,.5)}
+  .tabs a.book span.dot svg{width:22px;height:22px;stroke:var(--ink)}
+  .tabs a.book em{font-style:normal;color:var(--gold)}
+  .install.show{display:flex;position:fixed;z-index:34;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(78px + env(safe-area-inset-bottom,0px));align-items:center;gap:12px;padding:12px 12px 12px 14px;background:var(--raise);border:1px solid var(--line);box-shadow:0 14px 34px rgba(0,0,0,.55);animation:pop .5s var(--ease) both}
+}
+@keyframes pop{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.install img{width:40px;height:40px;flex:none}
+.install div{flex:1;min-width:0;display:grid;line-height:1.3}
+.install b{font-size:14px;font-weight:600}
+.install small{font-size:12px;color:var(--muted)}
+.install .go{padding:10px 14px;font-size:11px}
+.install .no{background:none;border:0;color:var(--muted);font-size:18px;padding:6px;cursor:pointer}
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(7,8,9,.7);display:grid;align-items:end}
+.sheet .in{background:var(--raise);border-top:1px solid var(--line);padding:26px max(22px,env(safe-area-inset-right,0px)) calc(26px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px));display:grid;gap:16px;animation:pop .4s var(--ease) both}
+.sheet h3{font-size:30px}
+.sheet ol{margin:0;padding-left:20px;display:grid;gap:10px;color:var(--muted)}
+.sheet ol b{color:var(--fg);font-weight:600}
+@media (display-mode: standalone){ .nav{padding-top:0} .install{display:none!important} }
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.trip img{transform:none}}
+</style>
+
+</head>
+<body>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Nitrogen Studios home"><div class="tile"><i>7</i><b>N</b></div><span>Nitrogen Studios</span></a>
+    <nav aria-label="Sections"><a href="#signature">Signature</a><a href="#work">Archive</a><a href="#services">Services</a><a href="#aerial">Aerial</a><a href="#about">Studio</a></nav>
+    <a class="btn" href="#book">Book</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero wrap" id="home">
+    <div class="hero-grid">
+      <div>
+        <span class="label gold">Photography · Film · Drone — Salgaa, Kenya</span>
+        <h1 style="margin-top:22px"><span class="l1"><span>Nitrogen</span></span><span class="l2"><span>Studios</span></span></h1>
+        <div class="hero-copy">
+          <p>Award-winning portraits on bold colour, weddings and graduations covered end to end, and aerial film from above. Shot in our Salgaa studio or wherever your moment happens.</p>
+          <div class="hero-cta"><a class="btn" href="#book">Book a session</a><a class="btn ghost" href="#signature">View the work</a></div>
+        </div>
+      </div>
+      <div class="trip" aria-label="Featured photographs">
+        <div class="p" data-set="5898_773_2,5906_775_1,5893_997_0"></div>
+        <div class="p" data-set="5899_1715_1,5904_1055_0,5902_2248_2"></div>
+        <div class="p" data-set="5895_1118_2,5906_1949_2,5898_1360_0"></div>
+      </div>
+    </div>
+    <div class="hero-meta"><span class="label">Est. Salgaa · Salgaa–Elburgon Rd</span><span class="label gold">Best Photography of the Year · 2025</span><span class="label">Indoor · Outdoor · Livestream</span></div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><div class="track" id="track"></div></div>
+
+  <div class="award wrap">
+    <div class="card">
+      <div class="seal"><div><small>Winner</small><b>2025</b><small>8th edition</small></div></div>
+      <div><span class="label gold">Kitenge Fashion Fest &amp; Awards</span><h3 style="margin-top:12px">Best Photography of the <em>Year</em></h3><p>Recognised at the 8th edition of the Kitenge Fashion Fest &amp; Awards for outstanding photography in 2025.</p></div>
+      <a class="btn ghost" href="#work">See why</a>
+    </div>
+  </div>
+
+  <section id="signature">
+    <div class="wrap">
+      <div class="head">
+        <div class="k"><span class="label gold">Signature series</span><h2>Colour, <em>light</em>,<br>and presence</h2></div>
+        <div style="display:grid;gap:18px;justify-items:end"><p>Hand-picked frames that define the studio's look: saturated backdrops, rich skin tones, confident poses.</p><div class="reel-nav"><button class="round" type="button" id="rp" aria-label="Scroll back">←</button><button class="round" type="button" id="rn" aria-label="Scroll forward">→</button></div></div>
+      </div>
+      <div class="reel" id="reel"><figure><div class="ph"><img loading="lazy" src="img/5899_1715_2.jpg" alt="Studio portrait holding a painted calabash"></div><figcaption><b>Studio portrait holding a painted calabash</b><span>Studio</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5905_1086_1.jpg" alt="Portrait in a metallic jacket on black"></div><figcaption><b>Portrait in a metallic jacket on black</b><span>Studio</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5901_1051_2.jpg" alt="Lounge portrait with a glass in hand"></div><figcaption><b>Lounge portrait with a glass in hand</b><span>Outdoor</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5895_531_1.jpg" alt="Black and white maternity couple portrait"></div><figcaption><b>Black and white maternity couple portrait</b><span>Family</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5896_1702_1.jpg" alt="Yellow jumpsuit against stone arches"></div><figcaption><b>Yellow jumpsuit against stone arches</b><span>Outdoor</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5905_1673_1.jpg" alt="Soft portrait on a blush backdrop"></div><figcaption><b>Soft portrait on a blush backdrop</b><span>Studio</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5897_1904_0.jpg" alt="Walking through the surf on the coast"></div><figcaption><b>Walking through the surf on the coast</b><span>Outdoor</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5902_1661_2.jpg" alt="Maternity portrait in a navy gown"></div><figcaption><b>Maternity portrait in a navy gown</b><span>Family</span></figcaption></figure><figure><div class="ph"><img loading="lazy" src="img/5906_1949_2.jpg" alt="Close portrait with copper braids"></div><figcaption><b>Close portrait with copper braids</b><span>Studio</span></figcaption></figure></div>
+    </div>
+  </section>
+
+  <section id="work" class="wrap">
+    <div class="head">
+      <div class="k"><span class="label gold">The archive</span><h2>Every <em>frame</em> tells it</h2></div>
+      <p>Browse by kind of session. Tap any photograph to see it full screen and swipe through the set.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter photographs" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="services" class="wrap">
+    <div class="head">
+      <div class="k"><span class="label gold">Services</span><h2>What we <em>cover</em></h2></div>
+      <p>From a single portrait to full-day coverage with a second camera, drone and livestream.</p>
+    </div>
+    <div class="index">
+      <div class="row"><span class="no">Studio</span><h3>Studio portraits</h3><p>Coloured backdrops, styled sets and controlled lighting for personal, profile and fashion portraits.</p><span class="tags">Solo · Couples · Fashion</span><img class="peek" src="img/5906_775_1.jpg" alt=""></div>
+      <div class="row"><span class="no">Location</span><h3>Outdoor sessions</h3><p>Natural-light shoots in gardens, parks and around town, finished in the studio's signature colour.</p><span class="tags">Lifestyle · Birthdays</span><img class="peek" src="img/5904_1055_0.jpg" alt=""></div>
+      <div class="row"><span class="no">Milestone</span><h3>Weddings</h3><p>Ceremony, reception and bridal party, with aerial wedding shots and highlight film on request.</p><span class="tags">Photo · Film · Drone</span><img class="peek" src="img/5898_1947_1.jpg" alt=""></div>
+      <div class="row"><span class="no">Milestone</span><h3>Maternity &amp; family</h3><p>Calm, guided studio sessions for expecting mothers, couples and families.</p><span class="tags">Maternity · Family</span><img class="peek" src="img/5902_2248_2.jpg" alt=""></div>
+      <div class="row"><span class="no">Events</span><h3>Graduations &amp; events</h3><p>Graduations, corporate functions, church services, funerals and live shows.</p><span class="tags">Events · Funerals</span><img class="peek" src="img/5903_1639_1.jpg" alt=""></div>
+      <div class="row"><span class="no">Broadcast</span><h3>Livestream</h3><p>Live coverage for guests who cannot attend, streamed from the venue.</p><span class="tags">Any event</span><img class="peek" src="img/5908_1464_1.jpg" alt=""></div>
+      <div class="row"><span class="no">Aerial</span><h3>Drone services</h3><p>Aerial photography and film for weddings, commercial films, real estate, live events and church services.</p><span class="tags">Real estate · Commercial</span><img class="peek" src="img/5904_1642_0.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <section id="aerial" class="wrap">
+    <div class="head">
+      <div class="k"><span class="label gold">Drone services</span><h2>The view from <em>above</em></h2></div>
+      <p>Venues, campuses, crowds and landscapes, captured with a licensed eye for scale.</p>
+    </div>
+    <div class="air">
+      <figure class="a1"><img src="img/5897_730_2.jpg" alt="Aerial of a bride and bridesmaids on the lawn"><figcaption>Wedding</figcaption></figure>
+      <figure><img src="img/5896_1115_0.jpg" alt="Aerial view of a forest waterfall"><figcaption>Landscape</figcaption></figure>
+      <figure><img src="img/5898_773_0.jpg" alt="Aerial view of a lakeside skyline"><figcaption>Skyline</figcaption></figure>
+      <div class="list"><span>Weddings</span><span>Commercial films</span><span>Real estate</span><span>Live events</span><span>Church services</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head">
+      <div class="k"><span class="label gold">How it works</span><h2>From enquiry to <em>gallery</em></h2></div>
+      <p>A simple path from your first message to the finished photographs.</p>
+    </div>
+    <div class="steps">
+      <div><b>1</b><h3>Enquire</h3><p>Send the date, place and kind of session on WhatsApp or by phone.</p></div>
+      <div><b>2</b><h3>Plan</h3><p>We agree the package, location, outfits and backdrops before the day.</p></div>
+      <div><b>3</b><h3>Shoot</h3><p>In the studio or on location, with drone and livestream if you booked them.</p></div>
+      <div><b>4</b><h3>Deliver</h3><p>Edited, colour-graded photographs and film, ready to share and print.</p></div>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="about">
+      <figure><img src="img/5894_1148_1.jpg" alt="Nitrogen Studios camera operator with a gimbal rig"><img src="img/5899_541_1.jpg" alt="Framing a shot in the studio"></figure>
+      <div class="copy">
+        <span class="label gold">The studio</span>
+        <h2>Capturing <em>priceless</em> moments</h2>
+        <p>Nitrogen Studios is a photography and videography studio in Salgaa, along the Salgaa–Elburgon road. We work in our own studio and on location, and bring drone and livestream kit to the events that need them.</p>
+        <p>The work is known for bold colour, flattering light and clean, vivid finishing. In 2025 the studio was named Best Photography of the Year at the Kitenge Fashion Fest &amp; Awards.</p>
+        <blockquote>Karibu sana. We value you.</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="wrap">
+    <div class="head">
+      <div class="k"><span class="label gold">Bookings</span><h2>Reserve your <em>date</em></h2></div>
+      <p>Tell us what you are planning. We will confirm availability, package and price with you directly.</p>
+    </div>
+    <div class="contact">
+      <div class="cards">
+        <div class="card"><span class="label">Call or WhatsApp</span><span class="v" id="phone">0713 224 710</span>
+          <div class="row2"><button class="mini" type="button" id="copy">Copy number</button><a class="mini" href="https://wa.me/254713224710" target="_blank" rel="noopener">WhatsApp</a></div></div>
+        <div class="card"><span class="label">Studio</span><span class="v">Salgaa</span><p class="note">Along the Salgaa–Elburgon road, opposite Club Dimples</p></div>
+        <div class="card"><span class="label">Instagram</span><span class="v">@nitrogen_photography_003</span>
+          <div class="row2"><a class="mini" href="https://www.instagram.com/nitrogen_photography_003" target="_blank" rel="noopener">Follow</a></div></div>
+      </div>
+      <form id="bookform" novalidate>
+        <label>Your name<input id="f-name" required autocomplete="name" placeholder="Jane Wanjiru"></label>
+        <label>Phone<input id="f-phone" type="tel" autocomplete="tel" placeholder="07xx xxx xxx"></label>
+        <label>Session<select id="f-type"><option>Studio portrait</option><option>Outdoor session</option><option>Wedding</option><option>Maternity &amp; family</option><option>Graduation</option><option>Event / livestream</option><option>Drone / aerial</option></select></label>
+        <label>Preferred date<input id="f-date" type="date"></label>
+        <label class="full">Details<textarea id="f-msg" placeholder="Location, number of people, hours of coverage"></textarea></label>
+        <div class="full" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center"><button class="btn" type="submit">Send on WhatsApp</button><span class="note" id="f-status">Opens WhatsApp with your request written out.</span></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><div class="big" aria-hidden="true">Nitrogen <em>Studios</em></div></div>
+  <div class="wrap meta"><span>© Nitrogen Studios · Salgaa, Kenya</span><span>Photography · Videography · Drone · Livestream</span><a href="#top" style="text-decoration:none">Back to top ↑</a></div>
+</footer>
+
+<a class="wa" href="https://wa.me/254713224710" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>Book on WhatsApp</span></a>
+
+<nav class="tabs" aria-label="App navigation">
+  <a href="#top" data-t="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+  <a href="#work" data-t="work"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Gallery</a>
+  <a href="#book" data-t="book" class="book"><span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8 7l1.5-3h5L16 7"/></svg></span><em>Book</em></a>
+  <a href="#services" data-t="services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Services</a>
+  <a href="https://wa.me/254713224710" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/></svg>Chat</a>
+</nav>
+
+<div class="install" id="install" role="region" aria-label="Install the app">
+  <img src="icons/icon-192.png" alt="">
+  <div><b>Get the Nitrogen app</b><small>Add it to your home screen. Opens full screen, works offline.</small></div>
+  <button class="btn go" type="button" id="install-go">Install</button>
+  <button class="no" type="button" id="install-no" aria-label="Dismiss">✕</button>
+</div>
+<div class="sheet" id="ios-sheet" hidden role="dialog" aria-modal="true" aria-label="Add to Home Screen">
+  <div class="in">
+    <span class="label gold">Install on iPhone</span>
+    <h3>Add Nitrogen to your <em>home screen</em></h3>
+    <ol><li>Tap the <b>Share</b> button in Safari's toolbar.</li><li>Scroll down and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>. The Nitrogen icon appears with your apps.</li></ol>
+    <button class="btn" type="button" id="ios-close">Got it</button>
+  </div>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <span class="count" id="lb-count"></span>
+  <button class="round x" id="lb-x" aria-label="Close">✕</button>
+  <button class="round" id="lb-prev" aria-label="Previous photo">←</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button class="round" id="lb-next" aria-label="Next photo">→</button>
+</div>
+
+<script>
+const PHOTOS=[{"c": "studio", "a": "Studio portrait in blue beaded traditional dress", "s": "img/5899_1715_1.jpg"}, {"c": "outdoor", "a": "Outdoor portrait in a white turtleneck", "s": "img/5904_1055_0.jpg"}, {"c": "family", "a": "Maternity portrait in white", "s": "img/5902_2248_2.jpg"}, {"c": "events", "a": "Aerial of a bride and bridesmaids on the lawn", "s": "img/5897_730_2.jpg"}, {"c": "aerial", "a": "Aerial view of a university campus", "s": "img/5904_1642_0.jpg"}, {"c": "studio", "a": "Studio portrait holding a painted calabash", "s": "img/5899_1715_2.jpg"}, {"c": "outdoor", "a": "Garden portrait in a white dress", "s": "img/5893_2171_2.jpg"}, {"c": "family", "a": "Maternity portrait in a navy gown", "s": "img/5902_1661_2.jpg"}, {"c": "events", "a": "Bridal party in matching robes", "s": "img/5898_1947_1.jpg"}, {"c": "aerial", "a": "Aerial view of event tents and guests", "s": "img/5904_1642_2.jpg"}, {"c": "studio", "a": "Kneeling pose on a teal backdrop", "s": "img/5895_1118_2.jpg"}, {"c": "outdoor", "a": "Close portrait reaching toward the lens", "s": "img/5901_1051_0.jpg"}, {"c": "family", "a": "Black and white maternity couple portrait", "s": "img/5895_531_1.jpg"}, {"c": "events", "a": "Outdoor wedding ceremony seating", "s": "img/5898_1360_2.jpg"}, {"c": "aerial", "a": "Aerial view of a forest waterfall", "s": "img/5896_1115_0.jpg"}, {"c": "studio", "a": "Portrait in a metallic jacket on black", "s": "img/5905_1086_1.jpg"}, {"c": "outdoor", "a": "Lounge portrait with a glass in hand", "s": "img/5901_1051_2.jpg"}, {"c": "family", "a": "Mother holding her baby in studio", "s": "img/5902_488_1.jpg"}, {"c": "events", "a": "Top-down shot of a flower-dressed wedding car", "s": "img/5898_773_1.jpg"}, {"c": "aerial", "a": "Aerial view of a lakeside skyline", "s": "img/5898_773_0.jpg"}, {"c": "studio", "a": "Soft portrait on a blush backdrop", "s": "img/5905_1673_1.jpg"}, {"c": "outdoor", "a": "Garden portrait in a black abaya", "s": "img/5898_1360_0.jpg"}, {"c": "family", "a": "Mother and child seated portrait", "s": "img/5905_499_2.jpg"}, {"c": "events", "a": "Marching band at a graduation procession", "s": "img/5903_1639_1.jpg"}, {"c": "aerial", "a": "Aerial view over a dense town", "s": "img/5899_541_0.jpg"}, {"c": "studio", "a": "Close portrait with copper braids", "s": "img/5906_1949_2.jpg"}, {"c": "outdoor", "a": "Portrait in Maasai beadwork and shuka", "s": "img/5898_773_2.jpg"}, {"c": "events", "a": "Graduation guests under a decorated tent", "s": "img/5903_1639_0.jpg"}, {"c": "aerial", "a": "Aerial of a large outdoor gathering", "s": "img/5898_1947_2.jpg"}, {"c": "studio", "a": "Fashion pose on a red backdrop", "s": "img/5906_775_1.jpg"}, {"c": "outdoor", "a": "Seated outdoor portrait in a navy dress", "s": "img/5907_1607_2.jpg"}, {"c": "events", "a": "Live performer at a rooftop event", "s": "img/5908_1464_1.jpg"}, {"c": "aerial", "a": "Aerial of a compound and parked cars", "s": "img/5901_2224_0.jpg"}, {"c": "studio", "a": "Seated portrait with a bouquet of red roses", "s": "img/5896_1702_0.jpg"}, {"c": "outdoor", "a": "Colour-graded portrait in a black top", "s": "img/5908_877_0.jpg"}, {"c": "events", "a": "Dignitaries walking at a university ceremony", "s": "img/5903_2226_1.jpg"}, {"c": "aerial", "a": "Sunset over a granite outcrop", "s": "img/5895_531_2.jpg"}, {"c": "studio", "a": "Full-length portrait in a grey suit", "s": "img/5906_775_0.jpg"}, {"c": "outdoor", "a": "Yellow jumpsuit against stone arches", "s": "img/5896_1702_1.jpg"}, {"c": "aerial", "a": "Rally car kicking up dust", "s": "img/5902_1075_0.jpg"}, {"c": "studio", "a": "Seated studio pose with red roses", "s": "img/5901_2224_2.jpg"}, {"c": "outdoor", "a": "Walking through the surf on the coast", "s": "img/5897_1904_0.jpg"}, {"c": "studio", "a": "Full-length portrait on black", "s": "img/5905_1673_0.jpg"}, {"c": "outdoor", "a": "Two women embracing in bright prints", "s": "img/5893_1584_2.jpg"}, {"c": "outdoor", "a": "Couple portrait in a garden", "s": "img/5906_775_2.jpg"}, {"c": "outdoor", "a": "Portrait holding a pale blue bouquet", "s": "img/5893_997_0.jpg"}], SRC={"5898_773_2": "img/5898_773_2.jpg", "5906_775_1": "img/5906_775_1.jpg", "5893_997_0": "img/5893_997_0.jpg", "5899_1715_1": "img/5899_1715_1.jpg", "5904_1055_0": "img/5904_1055_0.jpg", "5902_2248_2": "img/5902_2248_2.jpg", "5895_1118_2": "img/5895_1118_2.jpg", "5906_1949_2": "img/5906_1949_2.jpg", "5898_1360_0": "img/5898_1360_0.jpg"};
+const CATS=[["all","All"],["studio","Studio"],["outdoor","Outdoor"],["family","Maternity & family"],["events","Weddings & events"],["aerial","Aerial"]];
+const $=id=>document.getElementById(id);
+
+/* nav */
+const nav=$('nav'); const onScroll=()=>nav.classList.toggle('solid',scrollY>40); addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+/* triptych */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('.trip .p').forEach((p,pi)=>{
+  const ids=p.dataset.set.split(','); const imgs=ids.map((id,k)=>{const im=new Image(); im.src=SRC[id]; im.alt=''; if(k===0)im.className='on'; p.appendChild(im); return im;});
+  let i=0; if(!reduce) setTimeout(()=>setInterval(()=>{imgs[i].classList.remove('on'); i=(i+1)%imgs.length; imgs[i].classList.add('on');},5200),pi*1700);
+});
+
+/* ticker */
+const words=["Studio portraits","Weddings","Maternity","Graduations","Drone & aerial","Livestream","Outdoor sessions","Events"];
+$('track').innerHTML=[...words,...words].map(w=>`<span>${w}</span>`).join('');
+
+/* reel */
+$('rn').onclick=()=>$('reel').scrollBy({left:$('reel').clientWidth*.8,behavior:'smooth'});
+$('rp').onclick=()=>$('reel').scrollBy({left:-$('reel').clientWidth*.8,behavior:'smooth'});
+
+/* archive */
+const grid=$('grid'), filters=$('filters'); let current='all', visible=[];
+function render(){
+  visible=PHOTOS.filter(p=>current==='all'||p.c===current); grid.innerHTML='';
+  visible.forEach((p,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','View: '+p.a); b.style.animationDelay=Math.min(i,12)*30+'ms';
+    const im=document.createElement('img'); im.loading='lazy'; im.src=p.s; im.alt=p.a; const c=document.createElement('span'); c.className='cap'; c.textContent=p.a;
+    b.append(im,c); b.onclick=()=>openLb(i); grid.appendChild(b);});
+}
+CATS.forEach(([k,l])=>{const n=k==='all'?PHOTOS.length:PHOTOS.filter(p=>p.c===k).length; const c=document.createElement('button'); c.type='button'; c.className='chip'; c.dataset.k=k; c.innerHTML=l+'<sup>'+n+'</sup>'; c.setAttribute('aria-pressed',k==='all');
+  c.onclick=()=>{current=k; filters.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===k)); render();}; filters.appendChild(c);});
+render();
+
+/* lightbox (archive + reel) */
+const lb=$('lb'); let set=[], idx=0, last=null;
+function show(){const p=set[idx]; $('lb-img').src=p.s; $('lb-img').alt=p.a; $('lb-cap').textContent=p.a; $('lb-count').textContent=String(idx+1).padStart(2,'0')+' / '+String(set.length).padStart(2,'0');}
+function openLb(i,s){set=s||visible; idx=i; last=document.activeElement; show(); lb.hidden=false; document.body.style.overflow='hidden'; $('lb-x').focus();}
+function closeLb(){lb.hidden=true; document.body.style.overflow=''; last&&last.focus();}
+const step=d=>{idx=(idx+d+set.length)%set.length; show();};
+$('lb-x').onclick=closeLb; $('lb-prev').onclick=()=>step(-1); $('lb-next').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.tagName==='FIGURE')closeLb();});
+addEventListener('keydown',e=>{if(lb.hidden)return; if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')step(1); if(e.key==='ArrowLeft')step(-1);});
+let tx=null; lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',e=>{if(tx===null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50)step(dx<0?1:-1); tx=null;});
+const reelSet=[...document.querySelectorAll('#reel img')].map(im=>({s:im.src,a:im.alt}));
+document.querySelectorAll('#reel figure').forEach((f,i)=>{f.style.cursor='zoom-in'; f.tabIndex=0; f.onclick=()=>openLb(i,reelSet); f.onkeydown=e=>{if(e.key==='Enter')openLb(i,reelSet);};});
+
+/* contact */
+$('copy').onclick=function(){const b=this, done=t=>{b.textContent=t; setTimeout(()=>b.textContent='Copy number',1600);};
+  const sel=()=>{const r=document.createRange(); r.selectNodeContents($('phone')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected');};
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText('0713224710').then(()=>done('Copied'),sel); else sel();};
+$('bookform').addEventListener('submit',e=>{e.preventDefault(); const v=id=>$(id).value.trim(), st=$('f-status');
+  if(!v('f-name')){st.textContent='Add your name so we know who is booking.'; $('f-name').focus(); return;}
+  const msg=`Hello Nitrogen Studios, I would like to book a ${v('f-type')}.\nName: ${v('f-name')}`+(v('f-phone')?`\nPhone: ${v('f-phone')}`:'')+(v('f-date')?`\nPreferred date: ${v('f-date')}`:'')+(v('f-msg')?`\nDetails: ${v('f-msg')}`:'');
+  const a=document.createElement('a'); a.href='https://wa.me/254713224710?text='+encodeURIComponent(msg); a.target='_blank'; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
+  st.textContent='If WhatsApp did not open, call or message 0713 224 710.';});
+
+/* phone app: active tab, install prompt, service worker */
+const tabs=[...document.querySelectorAll('.tabs a[data-t]')];
+const secs=['home','work','services','book'].map(id=>$(id)).filter(Boolean);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const id=e.target.id; tabs.forEach(t=>t.classList.toggle('on',t.dataset.t===id));}}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+let deferred=null, dismissed=false;
+try{dismissed=localStorage.getItem('nitro-install-dismissed')==='1';}catch(e){}
+const banner=$('install');
+const offer=()=>{if(!standalone&&!dismissed)setTimeout(()=>banner.classList.add('show'),2500);};
+addEventListener('beforeinstallprompt',e=>{e.preventDefault(); deferred=e; offer();});
+if(ios&&!standalone) offer();
+$('install-go').onclick=async()=>{
+  if(deferred){deferred.prompt(); const r=await deferred.userChoice.catch(()=>null); deferred=null; banner.classList.remove('show'); return;}
+  $('ios-sheet').hidden=false;
+};
+$('install-no').onclick=()=>{banner.classList.remove('show'); try{localStorage.setItem('nitro-install-dismissed','1');}catch(e){}};
+$('ios-close').onclick=()=>{$('ios-sheet').hidden=true; banner.classList.remove('show');};
+$('ios-sheet').onclick=e=>{if(e.target.id==='ios-sheet')$('ios-sheet').hidden=true;};
+addEventListener('appinstalled',()=>banner.classList.remove('show'));
+if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+
+</body>
+</html>

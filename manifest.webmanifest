@@ -1,0 +1,22 @@
+{
+  "name": "Nitrogen Studios",
+  "short_name": "Nitrogen",
+  "description": "Award-winning photography, videography, drone and livestream in Salgaa, Kenya.",
+  "id": "./",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c0e10",
+  "theme_color": "#0c0e10",
+  "categories": ["photography", "lifestyle", "business"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Book a session", "short_name": "Book", "url": "./#book", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Browse the archive", "short_name": "Gallery", "url": "./#work", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
